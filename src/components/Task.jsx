@@ -1,3 +1,5 @@
+import { nanoid } from "nanoid";
+
 function Task({ id, name, checked, subtasks, addTask }) {
   return (
     <li>
@@ -17,7 +19,7 @@ function Task({ id, name, checked, subtasks, addTask }) {
 }
 
 function createTask(name) {
-  return { id: "", name, checked: false, subtasks: [] };
+  return { id: nanoid(), name, checked: false, subtasks: [] };
 }
 
 export default Task;
