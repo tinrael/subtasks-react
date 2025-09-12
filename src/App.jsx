@@ -8,13 +8,28 @@ function App(props) {
     setTasks((tasks) => addSubtask(tasks, task, parentId));
   }
 
+  function deleteTask(id) {
+    setTasks((tasks) => removeTask(tasks, id));
+  }
+
   return (
     <ul>
       {tasks.map((task) => (
-        <Task key={task.id} {...task} addTask={addTask} />
+        <Task
+          key={task.id}
+          {...task}
+          addTask={addTask}
+          deleteTask={deleteTask}
+        />
       ))}
     </ul>
   );
+}
+
+function removeTask(tasks, id) {
+  return tasks
+    .filter((task) => task.id !== id)
+    .map((task) => ({ ...task, subtasks: removeTask(task.subtasks, id) }));
 }
 
 function addSubtask(tasks, subtask, parentId) {
