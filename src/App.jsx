@@ -23,7 +23,7 @@ function App(props) {
 
   return (
     <>
-      <Form />
+      <Form addTask={addTask} />
       <ul>
         {tasks.map((task) => (
           <Task
@@ -80,7 +80,10 @@ function downTask(tasks, id) {
   }
 }
 
-function addSubtask(tasks, subtask, parentId) {
+function addSubtask(tasks, subtask, parentId = null) {
+  if (parentId === null) {
+    return [...tasks, subtask];
+  }
   return tasks.map((task) => {
     if (task.id === parentId) {
       return { ...task, subtasks: [...task.subtasks, subtask] };
