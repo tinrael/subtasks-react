@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Task from "./components/Task";
+import Form from "./components/Form";
 
 function App(props) {
   const [tasks, setTasks] = useState(props.tasks);
@@ -21,18 +22,21 @@ function App(props) {
   }
 
   return (
-    <ul>
-      {tasks.map((task) => (
-        <Task
-          key={task.id}
-          {...task}
-          addTask={addTask}
-          deleteTask={deleteTask}
-          raiseTask={raiseTask}
-          lowerTask={lowerTask}
-        />
-      ))}
-    </ul>
+    <>
+      <Form />
+      <ul>
+        {tasks.map((task) => (
+          <Task
+            key={task.id}
+            {...task}
+            addTask={addTask}
+            deleteTask={deleteTask}
+            raiseTask={raiseTask}
+            lowerTask={lowerTask}
+          />
+        ))}
+      </ul>
+    </>
   );
 }
 
