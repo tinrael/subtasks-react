@@ -43,7 +43,7 @@ function Task({
   );
 }
 
-function createTask(name) {
+export function createTask(name) {
   return { id: nanoid(), name, checked: false, subtasks: [] };
 }
 
