@@ -16,6 +16,10 @@ function App(props) {
     setTasks((tasks) => upTask(tasks, id));
   }
 
+  function lowerTask(id) {
+    setTasks((tasks) => downTask(tasks, id));
+  }
+
   return (
     <ul>
       {tasks.map((task) => (
@@ -25,6 +29,7 @@ function App(props) {
           addTask={addTask}
           deleteTask={deleteTask}
           raiseTask={raiseTask}
+          lowerTask={lowerTask}
         />
       ))}
     </ul>
@@ -50,6 +55,23 @@ function upTask(tasks, id) {
     return tasks.map((task) => ({
       ...task,
       subtasks: upTask(task.subtasks, id),
+    }));
+  }
+}
+
+function downTask(tasks, id) {
+  const index = tasks.findIndex((task) => task.id === id);
+  if (index !== -1 && index < tasks.length - 1) {
+    const tasksCopy = [...tasks];
+    [tasksCopy[index], tasksCopy[index + 1]] = [
+      tasksCopy[index + 1],
+      tasksCopy[index],
+    ];
+    return tasksCopy;
+  } else {
+    return tasks.map((task) => ({
+      ...task,
+      subtasks: downTask(task.subtasks, id),
     }));
   }
 }

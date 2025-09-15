@@ -1,6 +1,15 @@
 import { nanoid } from "nanoid";
 
-function Task({ id, name, checked, subtasks, addTask, deleteTask, raiseTask }) {
+function Task({
+  id,
+  name,
+  checked,
+  subtasks,
+  addTask,
+  deleteTask,
+  raiseTask,
+  lowerTask,
+}) {
   return (
     <li>
       {name}
@@ -13,6 +22,9 @@ function Task({ id, name, checked, subtasks, addTask, deleteTask, raiseTask }) {
       <button type="button" onClick={() => raiseTask(id)}>
         Raise
       </button>
+      <button type="button" onClick={() => lowerTask(id)}>
+        Lower
+      </button>
       {subtasks.length > 0 && (
         <ul>
           {subtasks.map((subtask) => (
@@ -22,6 +34,7 @@ function Task({ id, name, checked, subtasks, addTask, deleteTask, raiseTask }) {
               addTask={addTask}
               deleteTask={deleteTask}
               raiseTask={raiseTask}
+              lowerTask={lowerTask}
             />
           ))}
         </ul>
