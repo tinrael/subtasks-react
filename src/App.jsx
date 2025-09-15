@@ -6,7 +6,7 @@ function App(props) {
   const [tasks, setTasks] = useState(props.tasks);
 
   function addTask(task, parentId) {
-    setTasks((tasks) => addSubtask(tasks, task, parentId));
+    setTasks((tasks) => insertTask(tasks, task, parentId));
   }
 
   function deleteTask(id) {
@@ -80,7 +80,7 @@ function downTask(tasks, id) {
   }
 }
 
-function addSubtask(tasks, subtask, parentId = null) {
+function insertTask(tasks, subtask, parentId = null) {
   if (parentId === null) {
     return [...tasks, subtask];
   }
@@ -90,7 +90,7 @@ function addSubtask(tasks, subtask, parentId = null) {
     } else {
       return {
         ...task,
-        subtasks: addSubtask(task.subtasks, subtask, parentId),
+        subtasks: insertTask(task.subtasks, subtask, parentId),
       };
     }
   });
