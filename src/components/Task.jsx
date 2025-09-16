@@ -12,13 +12,25 @@ function Task({
   raiseTask,
   lowerTask,
 }) {
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setEditing] = useState(false);
+  const [newName, setNewName] = useState("");
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    editTask(id, newName);
+    setNewName("");
+    setEditing(false);
+  }
+
+  function handleChange(event) {
+    setNewName(event.target.value);
+  }
 
   const editingTemplate = (
-    <form>
+    <form onSubmit={handleSubmit}>
       <label htmlFor={id}>New name for {name}:</label>
-      <input type="text" id={id} />
-      <button type="button" onClick={() => setIsEditing(false)}>
+      <input type="text" id={id} value={newName} onChange={handleChange} />
+      <button type="button" onClick={() => setEditing(false)}>
         Cancel
       </button>
       <button type="submit">Save</button>
@@ -34,7 +46,7 @@ function Task({
       <button type="button" onClick={() => deleteTask(id)}>
         Delete
       </button>
-      <button type="button" onClick={() => setIsEditing(true)}>
+      <button type="button" onClick={() => setEditing(true)}>
         Edit
       </button>
       <button type="button" onClick={() => raiseTask(id)}>

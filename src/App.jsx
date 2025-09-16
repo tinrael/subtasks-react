@@ -13,6 +13,10 @@ function App(props) {
     setTasks((tasks) => removeTask(tasks, id));
   }
 
+  function editTask(id, newName) {
+    setTasks((tasks) => updateTask(tasks, id, newName));
+  }
+
   function raiseTask(id) {
     setTasks((tasks) => upTask(tasks, id));
   }
@@ -31,6 +35,7 @@ function App(props) {
             {...task}
             addTask={addTask}
             deleteTask={deleteTask}
+            editTask={editTask}
             raiseTask={raiseTask}
             lowerTask={lowerTask}
           />
@@ -60,6 +65,19 @@ function removeTask(tasks, id) {
   return tasks
     .filter((task) => task.id !== id)
     .map((task) => ({ ...task, subtasks: removeTask(task.subtasks, id) }));
+}
+
+function updateTask(tasks, id, newName) {
+  return tasks.map((task) => {
+    if (task.id === id) {
+      return { ...task, name: newName };
+    } else {
+      return {
+        ...task,
+        subtasks: updateTask(task.subtasks, id, newName),
+      };
+    }
+  });
 }
 
 function upTask(tasks, id) {
