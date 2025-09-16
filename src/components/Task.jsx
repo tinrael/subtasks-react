@@ -6,6 +6,7 @@ function Task({
   name,
   checked,
   subtasks,
+  subtaskName,
   addTask,
   deleteTask,
   editTask,
@@ -47,7 +48,10 @@ function Task({
         onChange={() => toggleTask(id)}
       />
       <label htmlFor={id}>{name}</label>
-      <button type="button" onClick={() => addTask(createTask("Task"), id)}>
+      <button
+        type="button"
+        onClick={() => addTask(createTask(subtaskName), id)}
+      >
         Add
       </button>
       <button type="button" onClick={() => deleteTask(id)}>
@@ -74,6 +78,7 @@ function Task({
             <Task
               key={subtask.id}
               {...subtask}
+              subtaskName={subtaskName}
               addTask={addTask}
               deleteTask={deleteTask}
               editTask={editTask}

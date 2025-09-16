@@ -4,6 +4,7 @@ import Form from "./components/Form";
 
 function App(props) {
   const [tasks, setTasks] = useState(props.tasks);
+  const [name, setName] = useState("");
 
   function addTask(task, parentId) {
     setTasks((tasks) => insertTask(tasks, task, parentId));
@@ -31,12 +32,13 @@ function App(props) {
 
   return (
     <>
-      <Form addTask={addTask} />
+      <Form name={name} setName={setName} addTask={addTask} />
       <ul>
         {tasks.map((task) => (
           <Task
             key={task.id}
             {...task}
+            subtaskName={name}
             addTask={addTask}
             deleteTask={deleteTask}
             editTask={editTask}

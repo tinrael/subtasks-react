@@ -2,16 +2,14 @@ import { useState } from "react";
 import { createTask } from "./Task";
 
 function Form(props) {
-  const [name, setName] = useState("");
-
   function handleSubmit(event) {
     event.preventDefault();
-    props.addTask(createTask(name));
-    setName("");
+    props.addTask(createTask(props.name));
+    props.setName("");
   }
 
   function handleChange(event) {
-    setName(event.target.value);
+    props.setName(event.target.value);
   }
 
   return (
@@ -21,7 +19,7 @@ function Form(props) {
         type="text"
         id="new-task-input"
         name="text"
-        value={name}
+        value={props.name}
         onChange={handleChange}
       />
       <button type="submit">Add</button>
