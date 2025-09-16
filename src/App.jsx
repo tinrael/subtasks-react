@@ -40,6 +40,22 @@ function App(props) {
   );
 }
 
+function insertTask(tasks, subtask, parentId = null) {
+  if (parentId === null) {
+    return [...tasks, subtask];
+  }
+  return tasks.map((task) => {
+    if (task.id === parentId) {
+      return { ...task, subtasks: [...task.subtasks, subtask] };
+    } else {
+      return {
+        ...task,
+        subtasks: insertTask(task.subtasks, subtask, parentId),
+      };
+    }
+  });
+}
+
 function removeTask(tasks, id) {
   return tasks
     .filter((task) => task.id !== id)
@@ -78,22 +94,6 @@ function downTask(tasks, id) {
       subtasks: downTask(task.subtasks, id),
     }));
   }
-}
-
-function insertTask(tasks, subtask, parentId = null) {
-  if (parentId === null) {
-    return [...tasks, subtask];
-  }
-  return tasks.map((task) => {
-    if (task.id === parentId) {
-      return { ...task, subtasks: [...task.subtasks, subtask] };
-    } else {
-      return {
-        ...task,
-        subtasks: insertTask(task.subtasks, subtask, parentId),
-      };
-    }
-  });
 }
 
 export default App;
