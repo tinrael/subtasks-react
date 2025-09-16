@@ -9,6 +9,7 @@ function Task({
   addTask,
   deleteTask,
   editTask,
+  toggleTask,
   raiseTask,
   lowerTask,
 }) {
@@ -39,7 +40,13 @@ function Task({
 
   const viewTemplate = (
     <>
-      {name}
+      <input
+        id={id}
+        type="checkbox"
+        defaultChecked={checked}
+        onChange={() => toggleTask(id)}
+      />
+      <label htmlFor={id}>{name}</label>
       <button type="button" onClick={() => addTask(createTask("Task"), id)}>
         Add
       </button>
@@ -70,6 +77,7 @@ function Task({
               addTask={addTask}
               deleteTask={deleteTask}
               editTask={editTask}
+              toggleTask={toggleTask}
               raiseTask={raiseTask}
               lowerTask={lowerTask}
             />

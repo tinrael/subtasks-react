@@ -17,6 +17,10 @@ function App(props) {
     setTasks((tasks) => updateTask(tasks, id, newName));
   }
 
+  function toggleTask(id) {
+    setTasks((tasks) => toggleTaskCompleted(tasks, id));
+  }
+
   function raiseTask(id) {
     setTasks((tasks) => upTask(tasks, id));
   }
@@ -36,6 +40,7 @@ function App(props) {
             addTask={addTask}
             deleteTask={deleteTask}
             editTask={editTask}
+            toggleTask={toggleTask}
             raiseTask={raiseTask}
             lowerTask={lowerTask}
           />
@@ -75,6 +80,19 @@ function updateTask(tasks, id, newName) {
       return {
         ...task,
         subtasks: updateTask(task.subtasks, id, newName),
+      };
+    }
+  });
+}
+
+function toggleTaskCompleted(tasks, id) {
+  return tasks.map((task) => {
+    if (task.id === id) {
+      return { ...task, checked: !task.checked };
+    } else {
+      return {
+        ...task,
+        subtasks: toggleTaskCompleted(task.subtasks, id),
       };
     }
   });
